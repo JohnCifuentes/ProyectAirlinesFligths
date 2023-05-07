@@ -1,16 +1,16 @@
 package app.jacm.sjft.modells;
 
 public class Tiquete {
-	private Silla silla;
+	private Puesto silla;
 	private Pasajero pasajero;
 	
 	public Tiquete() {}
 
-	public Silla getSilla() {
+	public Puesto getSilla() {
 		return silla;
 	}
 
-	public void setSilla(Silla silla) {
+	public void setSilla(Puesto silla) {
 		this.silla = silla;
 	}
 

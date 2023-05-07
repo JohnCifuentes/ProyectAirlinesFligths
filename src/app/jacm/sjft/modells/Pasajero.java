@@ -1,13 +1,11 @@
 package app.jacm.sjft.modells;
 
-import java.time.LocalDate;
-
 public class Pasajero {
 	private String nombreCompleto;
-	private String numeroIdentificacion;
+	private int numeroIdentificacion;
 	private String direccion;
 	private int numeroContacto;
-	private LocalDate fechaNacimiento;
+	private String fechaNacimiento;
 	private ContactoEmergencia contactoEmergencia;
 	
 	public Pasajero() {}
@@ -20,11 +18,11 @@ public class Pasajero {
 		this.nombreCompleto = nombreCompleto;
 	}
 
-	public String getNumeroIdentificacion() {
+	public int getNumeroIdentificacion() {
 		return numeroIdentificacion;
 	}
 
-	public void setNumeroIdentificacion(String numeroIdentificacion) {
+	public void setNumeroIdentificacion(int numeroIdentificacion) {
 		this.numeroIdentificacion = numeroIdentificacion;
 	}
 
@@ -44,11 +42,11 @@ public class Pasajero {
 		this.numeroContacto = numeroContacto;
 	}
 
-	public LocalDate getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
