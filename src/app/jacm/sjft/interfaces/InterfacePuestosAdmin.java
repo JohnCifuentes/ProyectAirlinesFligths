@@ -3,6 +3,10 @@ package app.jacm.sjft.interfaces;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import app.jacm.sjft.controllers.InterfaceAdministrarBotonesControlAL;
+import app.jacm.sjft.controllers.InterfaceAdministrarBotonesControlWL;
+import app.jacm.sjft.controllers.InterfacePuestosAdminControlAL;
+import app.jacm.sjft.controllers.InterfacePuestosAdminControlWL;
 import app.jacm.sjft.modells.Puesto;
 import app.jacm.sjft.modells.Tripulante;
 import app.jacm.sjft.tools.Herramientas;
@@ -21,20 +25,28 @@ import java.awt.event.ActionEvent;
 
 public class InterfacePuestosAdmin extends JFrame{
 	private InterfaceAdministrarBotones vAdministrarBotones;
-	private JLabel lblCopiloto;
-	private JLabel lblAsistente3;
-	private JLabel lblAsistente2;
-	private JLabel lblPiloto;
-	private JLabel lblAsistente1;
+	private int activarInactivarPuesto;
+	private int numeroVuelo;
+	private ArrayList<Tripulante> tripulantes = new ArrayList<Tripulante>();
+	private ArrayList<Puesto> puestos  = new ArrayList<Puesto>();
+	private JButton[] btnPuestos;
+	private GridBagConstraints[] gbc_btnPuestos;
+	private Herramientas herramienta = new Herramientas();
 	/**
 	 * 
 	 */
-	private Herramientas herramienta = new Herramientas();
-	
-	public InterfacePuestosAdmin(InterfaceAdministrarBotones vAdministrarBotones, int numeroVuelo) {
+	private InterfacePuestosAdminControlAL controlVentanaEventos = new InterfacePuestosAdminControlAL(this);
+	private InterfacePuestosAdminControlWL controlVentana = new InterfacePuestosAdminControlWL(this);
+	/**
+	 * 
+	 */
+	public InterfacePuestosAdmin(InterfaceAdministrarBotones vAdministrarBotones, int numeroVuelo, int activarInactivarPuesto) {
 		this.vAdministrarBotones = vAdministrarBotones;
-		ArrayList<Tripulante> tripulantes = this.vAdministrarBotones.getVistaPrincipal().getTripulantes().get(numeroVuelo);
-		ArrayList<Puesto> puestos = this.vAdministrarBotones.getVistaPrincipal().getPuestos().get(numeroVuelo);	
+		this.activarInactivarPuesto = activarInactivarPuesto;
+		this.numeroVuelo = numeroVuelo;
+		
+		tripulantes = this.vAdministrarBotones.getVistaPrincipal().getTripulantes().get(numeroVuelo);
+		puestos = this.vAdministrarBotones.getVistaPrincipal().getPuestos().get(numeroVuelo);	
 
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
@@ -59,7 +71,7 @@ public class InterfacePuestosAdmin extends JFrame{
 		gbl_panelTripulante.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		panelTripulante.setLayout(gbl_panelTripulante);
 		
-		lblCopiloto = new JLabel();
+		JLabel lblCopiloto = new JLabel();
 		lblCopiloto.setText(tripulantes.get(0).getNombreCompleto());
 		GridBagConstraints gbc_lblCopiloto = new GridBagConstraints();
 		gbc_lblCopiloto.insets = new Insets(0, 0, 5, 5);
@@ -67,7 +79,7 @@ public class InterfacePuestosAdmin extends JFrame{
 		gbc_lblCopiloto.gridy = 2;
 		panelTripulante.add(lblCopiloto, gbc_lblCopiloto);
 		
-		lblPiloto = new JLabel();
+		JLabel lblPiloto = new JLabel();
 		lblPiloto.setText(tripulantes.get(1).getNombreCompleto());
 		GridBagConstraints gbc_lblPiloto = new GridBagConstraints();
 		gbc_lblPiloto.insets = new Insets(0, 0, 5, 5);
@@ -75,7 +87,7 @@ public class InterfacePuestosAdmin extends JFrame{
 		gbc_lblPiloto.gridy = 4;
 		panelTripulante.add(lblPiloto, gbc_lblPiloto);
 
-		lblAsistente1 = new JLabel();
+		JLabel lblAsistente1 = new JLabel();
 		lblAsistente1.setText(tripulantes.get(2).getNombreCompleto());
 		GridBagConstraints gbc_lblAsistente1 = new GridBagConstraints();
 		gbc_lblAsistente1.insets = new Insets(0, 0, 5, 0);
@@ -83,7 +95,7 @@ public class InterfacePuestosAdmin extends JFrame{
 		gbc_lblAsistente1.gridy = 1;
 		panelTripulante.add(lblAsistente1, gbc_lblAsistente1);
 		
-		lblAsistente2 = new JLabel();
+		JLabel lblAsistente2 = new JLabel();
 		lblAsistente2.setText(tripulantes.get(3).getNombreCompleto());
 		GridBagConstraints gbc_lblAsistente2 = new GridBagConstraints();
 		gbc_lblAsistente2.insets = new Insets(0, 0, 5, 0);
@@ -91,7 +103,7 @@ public class InterfacePuestosAdmin extends JFrame{
 		gbc_lblAsistente2.gridy = 3;
 		panelTripulante.add(lblAsistente2, gbc_lblAsistente2);
 		
-		lblAsistente3 = new JLabel();
+		JLabel lblAsistente3 = new JLabel();
 		lblAsistente3.setText(tripulantes.get(4).getNombreCompleto());
 		GridBagConstraints gbc_lblAsistente3 = new GridBagConstraints();
 		gbc_lblAsistente3.insets = new Insets(0, 0, 5, 0);
@@ -108,17 +120,15 @@ public class InterfacePuestosAdmin extends JFrame{
 		panel.add(panelPuestos, gbc_panelPuestos);
 		GridBagLayout gbl_panelPuestos = new GridBagLayout();
 		gbl_panelPuestos.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		//gbl_panelPuestos.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panelPuestos.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panelPuestos.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
-		//gbl_panelPuestos.rowWeights = new double[]{1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
 		gbl_panelPuestos.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
 		panelPuestos.setLayout(gbl_panelPuestos);
 		
-		JButton[] btnPuestos = herramienta.btnPuestos(puestos);
-		GridBagConstraints[] gbc_btnPuestos = herramienta.gbc_btnPuestos(puestos);
-		for(int i = 0; i < btnPuestos.length; i++) {
-			panelPuestos.add(btnPuestos[i], gbc_btnPuestos[i]);
+		this.btnPuestos = herramienta.btnPuestos(puestos);
+		this.gbc_btnPuestos = herramienta.gbc_btnPuestos(puestos);
+		for(int i = 0; i < this.btnPuestos.length; i++) {
+			panelPuestos.add(this.btnPuestos[i], this.gbc_btnPuestos[i]);
 		}
 
 		for(int i = 0; i < 10; i++) {
@@ -129,6 +139,77 @@ public class InterfacePuestosAdmin extends JFrame{
 			gbc_lblNewLabel.gridy = 4;
 			panelPuestos.add(lblNewLabel, gbc_lblNewLabel);
 		}
-
+		/**
+		 * EVENTOS 
+		 */
+		this.addWindowListener(controlVentana);
+		for(int i = 0; i < this.btnPuestos.length; i++) {
+			this.btnPuestos[i].addActionListener(controlVentanaEventos);
+		}
 	}
+	
+	public InterfaceAdministrarBotones getvAdministrarBotones() {
+		return vAdministrarBotones;
+	}
+	
+	public void setvAdministrarBotones(InterfaceAdministrarBotones vAdministrarBotones) {
+		this.vAdministrarBotones = vAdministrarBotones;
+	}
+	
+	public int getActivarInactivarPuesto() {
+		return activarInactivarPuesto;
+	}
+	
+	public void setActivarInactivarPuesto(int activarInactivarPuesto) {
+		this.activarInactivarPuesto = activarInactivarPuesto;
+	}
+	
+	public int getNumeroVuelo() {
+		return numeroVuelo;
+	}
+	
+	public void setNumeroVuelo(int numeroVuelo) {
+		this.numeroVuelo = numeroVuelo;
+	}
+	
+	public ArrayList<Tripulante> getTripulantes() {
+		return tripulantes;
+	}
+	
+	public void setTripulantes(ArrayList<Tripulante> tripulantes) {
+		this.tripulantes = tripulantes;
+	}
+	
+	public ArrayList<Puesto> getPuestos() {
+		return puestos;
+	}
+	
+	public void setPuestos(ArrayList<Puesto> puestos) {
+		this.puestos = puestos;
+	}
+	
+	public JButton[] getBtnPuestos() {
+		return btnPuestos;
+	}
+	
+	public void setBtnPuestos(JButton[] btnPuestos) {
+		this.btnPuestos = btnPuestos;
+	}
+	
+	public GridBagConstraints[] getGbc_btnPuestos() {
+		return gbc_btnPuestos;
+	}
+	
+	public void setGbc_btnPuestos(GridBagConstraints[] gbc_btnPuestos) {
+		this.gbc_btnPuestos = gbc_btnPuestos;
+	}
+	
+	public Herramientas getHerramienta() {
+		return herramienta;
+	}
+	
+	public void setHerramienta(Herramientas herramienta) {
+		this.herramienta = herramienta;
+	}
+	
 }

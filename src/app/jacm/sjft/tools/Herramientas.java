@@ -60,8 +60,10 @@ public class Herramientas {
 			JButton btnPuesto = new JButton(listaPuestos.get(i).getConsecutivoBoleto());
 			if(listaPuestos.get(i).getDisponibilidad() == 0) {
 				btnPuesto.setBackground(Color.GREEN);
-			} else {
+			} else if(listaPuestos.get(i).getDisponibilidad() == 1){
 				btnPuesto.setBackground(Color.RED);
+			} else {
+				btnPuesto.setBackground(Color.YELLOW);
 			}
 			btnPuestos[i] = btnPuesto;			
 		}
@@ -104,7 +106,8 @@ public class Herramientas {
 				gbc_btnPuesto.fill = GridBagConstraints.HORIZONTAL;
 				gbc_btnPuesto.gridheight = 1;
 			}
-			//--
+			/**
+			 **/
 			if(i == 0) {
 				posicionY = 0;
 			} else {
@@ -124,10 +127,6 @@ public class Herramientas {
 					}
 				}
 			}
-			//--
-			System.out.println("[" + i + "] - " + listaPuestos.get(i).getConsecutivoBoleto() + 
-					"Columna " + listaPuestos.get(i).getLetra() + "[" + posicionX + "]" + "Fila [" + posicionY + "]");
-			//--
 			gbc_btnPuesto.insets = new Insets(0, 0, 5, 5);
 			gbc_btnPuesto.gridx = posicionX;
 			gbc_btnPuesto.gridy = posicionY;

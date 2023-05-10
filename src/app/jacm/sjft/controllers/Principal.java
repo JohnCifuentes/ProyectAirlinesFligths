@@ -9,6 +9,7 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import app.jacm.sjft.interfaces.InterfacePrincipal;
 import app.jacm.sjft.modells.OrdenCompra;
@@ -29,8 +30,6 @@ public class Principal {
 	public static void main(String[] args) {
 		puestos = generarPuestos();
 		fechaHora = generarFechaHora();
-		//JButton[] botones = herramienta.btnPuestos(puestos.get(0));
-		//GridBagConstraints[] asd = herramienta.gbc_btnPuestos(puestos.get(0));
 		/**
 		 * 
 		 */

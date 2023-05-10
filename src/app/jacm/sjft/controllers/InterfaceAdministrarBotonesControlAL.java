@@ -57,7 +57,7 @@ public class InterfaceAdministrarBotonesControlAL implements ActionListener{
 			}					
 		}
 		/**
-		 * ValidaAcceso - activarPuestos();
+		 * ValidaAcceso - activarInactivarPuestos();
 		 */
 		if(e.getSource() == this.vAdministrarBotones.getBtnActivarPuesto()) {
 			this.numeroVuelo = herramienta.numeroVuelo(vAdministrarBotones.getVistaPrincipal().getCbFechaSalidaVuelo().getSelectedIndex(), vAdministrarBotones.getVistaPrincipal().getCbHoraSalidaVuelo().getSelectedIndex());
@@ -66,7 +66,20 @@ public class InterfaceAdministrarBotonesControlAL implements ActionListener{
 			if(tripulanteNumeroVueloMaximo == -1) {
 				JOptionPane.showMessageDialog(vAdministrarBotones, "Debe de cargar primero los tripulantes del vuelo" + this.herramienta.detallesVuelo(this.numeroVuelo, this.vAdministrarBotones.getVistaPrincipal().getFechaHora()));
 			} else {
-				activarPuestos(this.numeroVuelo-1);
+				activarInactivarPuestos(this.numeroVuelo-1, 0);
+			} 
+		}
+		/**
+		 * ValidaAcceso - activarInactivarPuestos();
+		 */
+		if(e.getSource() == this.vAdministrarBotones.getBtnDesactivarPuesto()) {
+			this.numeroVuelo = herramienta.numeroVuelo(vAdministrarBotones.getVistaPrincipal().getCbFechaSalidaVuelo().getSelectedIndex(), vAdministrarBotones.getVistaPrincipal().getCbHoraSalidaVuelo().getSelectedIndex());
+			int tripulanteNumeroVueloMaximo = this.herramienta.numeroVueloTripulantesCargadosMax(
+					this.vAdministrarBotones.getVistaPrincipal().getTripulantes());
+			if(tripulanteNumeroVueloMaximo == -1) {
+				JOptionPane.showMessageDialog(vAdministrarBotones, "Debe de cargar primero los tripulantes del vuelo" + this.herramienta.detallesVuelo(this.numeroVuelo, this.vAdministrarBotones.getVistaPrincipal().getFechaHora()));
+			} else {
+				activarInactivarPuestos(this.numeroVuelo-1, 1);
 			} 
 		}
 	}
@@ -83,8 +96,8 @@ public class InterfaceAdministrarBotonesControlAL implements ActionListener{
 	/**
 	 * 
 	 */
-	public void activarPuestos(int numeroVuelo) {
-		InterfacePuestosAdmin vCargarTripulante = new InterfacePuestosAdmin(this.vAdministrarBotones, numeroVuelo);
+	public void activarInactivarPuestos(int numeroVuelo, int activarInactivarPuesto) {
+		InterfacePuestosAdmin vCargarTripulante = new InterfacePuestosAdmin(this.vAdministrarBotones, numeroVuelo, activarInactivarPuesto);
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		vCargarTripulante.setLocation(pantalla.width/2, pantalla.height/2);
 		vCargarTripulante.setSize(995, 450);
