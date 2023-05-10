@@ -11,19 +11,18 @@ import javax.swing.JOptionPane;
 import app.jacm.sjft.interfaces.InterfaceAdministrarBotones;
 import app.jacm.sjft.interfaces.InterfaceDatosPersonalesTripulante;
 import app.jacm.sjft.interfaces.InterfacePrincipal;
+import app.jacm.sjft.interfaces.InterfacePuestosAdmin;
 import app.jacm.sjft.modells.Tripulante;
 import app.jacm.sjft.tools.Herramientas;
 
 public class InterfaceAdministrarBotonesControlAL implements ActionListener{
-	private InterfaceAdministrarBotones vAdministrarBotones;
-	private InterfacePrincipal vPrincipal;	
-	public Herramientas herramienta = new Herramientas();
+	private InterfaceAdministrarBotones vAdministrarBotones;	
+	private int numeroVuelo;
+	private Herramientas herramienta = new Herramientas();
 	/**
-	 * @param vPrincipal
 	 * @param vAdministrarBotones
 	 */
-	public InterfaceAdministrarBotonesControlAL(InterfacePrincipal vPrincipal, InterfaceAdministrarBotones vAdministrarBotones) {
-		this.vPrincipal = vPrincipal;
+	public InterfaceAdministrarBotonesControlAL(InterfaceAdministrarBotones vAdministrarBotones) {
 		this.vAdministrarBotones = vAdministrarBotones;
 	};
 	/**
@@ -35,38 +34,60 @@ public class InterfaceAdministrarBotonesControlAL implements ActionListener{
 		 * ValidaAcceso - cargarTripulantes(); 
 		 */
 		if(e.getSource() == this.vAdministrarBotones.getBtnCargarTripulantes()) {
-			int numeroVuelo = this.herramienta.numeroVuelo(
-				this.vAdministrarBotones.getVistaPrincipal().getCbFechaSalidaVuelo().getSelectedIndex(), 
-				this.vAdministrarBotones.getVistaPrincipal().getCbHoraSalidaVuelo().getSelectedIndex());
+			this.numeroVuelo = herramienta.numeroVuelo(vAdministrarBotones.getVistaPrincipal().getCbFechaSalidaVuelo().getSelectedIndex(), vAdministrarBotones.getVistaPrincipal().getCbHoraSalidaVuelo().getSelectedIndex());
 			int tripulanteNumeroVueloMaximo = this.herramienta.numeroVueloTripulantesCargadosMax(
 				this.vAdministrarBotones.getVistaPrincipal().getTripulantes());
 			if(tripulanteNumeroVueloMaximo == -1) {
-				if(numeroVuelo > 1) {
+				if(this.numeroVuelo > 1) {
 					JOptionPane.showMessageDialog(vAdministrarBotones, "Debe de cargar primero los tripulantes del vuelo " + this.herramienta.detallesVuelo(
-						numeroVuelo - 1, this.vAdministrarBotones.getVistaPrincipal().getFechaHora()));
+						this.numeroVuelo - 1, this.vAdministrarBotones.getVistaPrincipal().getFechaHora()));
 				} else {
-					cargarTripulantes(numeroVuelo);
+					cargarTripulantes(this.numeroVuelo);
 				}
 			} else {
-				if(numeroVuelo > tripulanteNumeroVueloMaximo) {
+				if(this.numeroVuelo == tripulanteNumeroVueloMaximo) {
+					JOptionPane.showMessageDialog(vAdministrarBotones, "Ya cargo los tripulantes del vuelo " + this.herramienta.detallesVuelo(
+						this.numeroVuelo,  this.vAdministrarBotones.getVistaPrincipal().getFechaHora()));					
+				}else if(this.numeroVuelo > tripulanteNumeroVueloMaximo) {
 					JOptionPane.showMessageDialog(vAdministrarBotones, "Debe de cargar primero los tripulantes del vuelo " + this.herramienta.detallesVuelo(
-						numeroVuelo - 1, this.vAdministrarBotones.getVistaPrincipal().getFechaHora()));
+						this.numeroVuelo - 1, this.vAdministrarBotones.getVistaPrincipal().getFechaHora()));
 				} else {
-					cargarTripulantes(numeroVuelo);
+					cargarTripulantes(this.numeroVuelo);
 				}
 			}					
+		}
+		/**
+		 * ValidaAcceso - activarPuestos();
+		 */
+		if(e.getSource() == this.vAdministrarBotones.getBtnActivarPuesto()) {
+			this.numeroVuelo = herramienta.numeroVuelo(vAdministrarBotones.getVistaPrincipal().getCbFechaSalidaVuelo().getSelectedIndex(), vAdministrarBotones.getVistaPrincipal().getCbHoraSalidaVuelo().getSelectedIndex());
+			int tripulanteNumeroVueloMaximo = this.herramienta.numeroVueloTripulantesCargadosMax(
+					this.vAdministrarBotones.getVistaPrincipal().getTripulantes());
+			if(tripulanteNumeroVueloMaximo == -1) {
+				JOptionPane.showMessageDialog(vAdministrarBotones, "Debe de cargar primero los tripulantes del vuelo" + this.herramienta.detallesVuelo(this.numeroVuelo, this.vAdministrarBotones.getVistaPrincipal().getFechaHora()));
+			} else {
+				activarPuestos(this.numeroVuelo-1);
+			} 
 		}
 	}
 	/**
 	 * 
-	 * @param numeroVuelo
 	 */
 	public void cargarTripulantes(int numeroVuelo) {
 		InterfaceDatosPersonalesTripulante vCargarTripulante = new InterfaceDatosPersonalesTripulante(this.vAdministrarBotones, numeroVuelo);
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-		vCargarTripulante.setLocation(pantalla.width/2 - vCargarTripulante.getSize().width/2, pantalla.height/2 - vCargarTripulante.getSize().height/2);
-		vCargarTripulante.setSize(525, 220);
+		vCargarTripulante.setLocation(pantalla.width/2, pantalla.height/2);
+		vCargarTripulante.setSize(870, 300);
 		vCargarTripulante.setVisible(true);
 	};
-
+	/**
+	 * 
+	 */
+	public void activarPuestos(int numeroVuelo) {
+		InterfacePuestosAdmin vCargarTripulante = new InterfacePuestosAdmin(this.vAdministrarBotones, numeroVuelo);
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+		vCargarTripulante.setLocation(pantalla.width/2, pantalla.height/2);
+		vCargarTripulante.setSize(995, 450);
+		vCargarTripulante.setVisible(true);
+	}
 }

@@ -31,7 +31,7 @@ public class InterfaceAdministrarBotones extends JFrame{
 	/**
 	 * 
 	 */
-	private InterfaceAdministrarBotonesControlAL controlVentanaEventos = new InterfaceAdministrarBotonesControlAL(vistaPrincipal, this);
+	private InterfaceAdministrarBotonesControlAL controlVentanaEventos = new InterfaceAdministrarBotonesControlAL(this);
 	private InterfaceAdministrarBotonesControlWL controlVentana = new InterfaceAdministrarBotonesControlWL(this);
 	/**
 	 * 
@@ -54,10 +54,6 @@ public class InterfaceAdministrarBotones extends JFrame{
 		panel.setLayout(gbl_panel);
 		
 		btnCargarTripulantes = new JButton("Cargar Tripulantes");
-		btnCargarTripulantes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		GridBagConstraints gbc_btnCargarTripulantes = new GridBagConstraints();
 		gbc_btnCargarTripulantes.fill = GridBagConstraints.BOTH;
 		gbc_btnCargarTripulantes.insets = new Insets(0, 0, 5, 5);

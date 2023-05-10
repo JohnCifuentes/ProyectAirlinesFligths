@@ -84,5 +84,11 @@ public class Puesto {
 	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
-
+	
+	public String getConsecutivoBoleto() {
+		String consecutivoBoleto;
+		String tipoVuelo = this.getTipo()==0?"VIP":"GEN";
+		consecutivoBoleto = tipoVuelo + "-" + this.getLetra() + this.getConsecutivo();
+		return consecutivoBoleto;
+	}
 }

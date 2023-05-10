@@ -124,7 +124,6 @@ public class InterfacePrincipal extends JFrame{
 		gbc_lblNewLabel_3.gridy = 1;
 		panel_1.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
-		String[] valoresFechaSalida = new String[4];
 		String[] valoresFechaSalidaPrueba = {
 			"Seleccionar...",
 			this.fechaHora[0][0],
@@ -146,6 +145,7 @@ public class InterfacePrincipal extends JFrame{
 			this.fechaHora[0][2], 
 			this.fechaHora[0][3]
 		};
+		
 		cbHoraSalidaVuelo = new JComboBox(valoresHoraSalida);
 		GridBagConstraints gbc_cbHoraSalidaVuelo = new GridBagConstraints();
 		gbc_cbHoraSalidaVuelo.insets = new Insets(0, 0, 5, 5);

@@ -1,22 +1,27 @@
-package app.jacm.sjft.controllers;
+ package app.jacm.sjft.controllers;
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.Toolkit;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
+
 import app.jacm.sjft.interfaces.InterfacePrincipal;
 import app.jacm.sjft.modells.OrdenCompra;
 import app.jacm.sjft.modells.Puesto;
 import app.jacm.sjft.modells.Tripulante;
+import app.jacm.sjft.tools.Herramientas;
 
 public class Principal {
 	static ArrayList<OrdenCompra> ordenesCompra = new ArrayList<OrdenCompra>();
 	static String[][] fechaHora = new String[3][4];
 	static ArrayList<ArrayList<Tripulante>> tripulantes = new ArrayList<ArrayList<Tripulante>>();
 	static ArrayList<ArrayList<Puesto>> puestos = new ArrayList<ArrayList<Puesto>>();
+	static Herramientas herramienta = new Herramientas();
 	/**
 	 * main
 	 * @param args
@@ -24,12 +29,14 @@ public class Principal {
 	public static void main(String[] args) {
 		puestos = generarPuestos();
 		fechaHora = generarFechaHora();
+		//JButton[] botones = herramienta.btnPuestos(puestos.get(0));
+		//GridBagConstraints[] asd = herramienta.gbc_btnPuestos(puestos.get(0));
 		/**
 		 * 
 		 */
 		InterfacePrincipal vPrincipal = new InterfacePrincipal(ordenesCompra, fechaHora, tripulantes, puestos);
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-		vPrincipal.setLocation(pantalla.width/6/* - vPrincipal.getSize().width/2*/, pantalla.height/4/* - vPrincipal.getSize().height/2*/);
+		vPrincipal.setLocation(pantalla.width/6, pantalla.height/4);
 		vPrincipal.setSize(870, 230);
 		vPrincipal.setVisible(true);
 	}
