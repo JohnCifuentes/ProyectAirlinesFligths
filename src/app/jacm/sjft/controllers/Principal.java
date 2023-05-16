@@ -130,6 +130,9 @@ public class Principal {
 				}
 			}
 			generarPuestos.add(puestosFecha);
+			if(consecutivoPuesto == 56) {
+				consecutivoPuesto = 0;
+			}
 		}
 		return generarPuestos;
 	}

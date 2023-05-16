@@ -48,7 +48,7 @@ public class InterfaceAdministrarBotonesControlAL implements ActionListener{
 				if(this.numeroVuelo == tripulanteNumeroVueloMaximo) {
 					JOptionPane.showMessageDialog(vAdministrarBotones, "Ya cargo los tripulantes del vuelo " + this.herramienta.detallesVuelo(
 						this.numeroVuelo,  this.vAdministrarBotones.getVistaPrincipal().getFechaHora()));					
-				}else if(this.numeroVuelo > tripulanteNumeroVueloMaximo) {
+				}else if(this.numeroVuelo > (tripulanteNumeroVueloMaximo+1)) {
 					JOptionPane.showMessageDialog(vAdministrarBotones, "Debe de cargar primero los tripulantes del vuelo " + this.herramienta.detallesVuelo(
 						this.numeroVuelo - 1, this.vAdministrarBotones.getVistaPrincipal().getFechaHora()));
 				} else {
@@ -89,18 +89,18 @@ public class InterfaceAdministrarBotonesControlAL implements ActionListener{
 	public void cargarTripulantes(int numeroVuelo) {
 		InterfaceDatosPersonalesTripulante vCargarTripulante = new InterfaceDatosPersonalesTripulante(this.vAdministrarBotones, numeroVuelo);
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-		vCargarTripulante.setLocation(pantalla.width/2, pantalla.height/2);
-		vCargarTripulante.setSize(870, 300);
+		vCargarTripulante.setLocation(pantalla.width/8, pantalla.height/4);
+		vCargarTripulante.setSize(1070, 430);
 		vCargarTripulante.setVisible(true);
 	};
 	/**
 	 * 
 	 */
 	public void activarInactivarPuestos(int numeroVuelo, int activarInactivarPuesto) {
-		InterfacePuestosAdmin vCargarTripulante = new InterfacePuestosAdmin(this.vAdministrarBotones, numeroVuelo, activarInactivarPuesto);
+		InterfacePuestosAdmin vCargarPuestosAdmin = new InterfacePuestosAdmin(this.vAdministrarBotones, numeroVuelo, activarInactivarPuesto);
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-		vCargarTripulante.setLocation(pantalla.width/2, pantalla.height/2);
-		vCargarTripulante.setSize(995, 450);
-		vCargarTripulante.setVisible(true);
+		vCargarPuestosAdmin.setLocation(pantalla.width/8, pantalla.height/4);
+		vCargarPuestosAdmin.setSize(1070, 430);
+		vCargarPuestosAdmin.setVisible(true);
 	}
 }

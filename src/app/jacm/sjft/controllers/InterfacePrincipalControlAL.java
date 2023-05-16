@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import app.jacm.sjft.interfaces.InterfaceAdministrarBotones;
 import app.jacm.sjft.interfaces.InterfacePrincipal;
+import app.jacm.sjft.interfaces.InterfacePuestosSeleccionar;
 import app.jacm.sjft.modells.Tripulante;
 import app.jacm.sjft.tools.Herramientas;
 
@@ -55,10 +56,10 @@ public class InterfacePrincipalControlAL implements ActionListener{
 						 * numeroVuelo - FechaHoraVueloSeleccionado
 						 */
 						int numeroVuelo = herramienta.numeroVuelo(this.vPrincipal.getCbFechaSalidaVuelo().getSelectedIndex(), this.vPrincipal.getCbHoraSalidaVuelo().getSelectedIndex());
-						//datoValidoNumeroVuelo
-						if(numeroVuelo != -1 && numeroVuelo <= this.vPrincipal.getTripulantes().get(numeroVuelo).size()) {
-							//validarUsuarioExiste - numeroVueloTripulantes
-							ArrayList<Tripulante> tripulantes = this.vPrincipal.getTripulantes().get(numeroVuelo);
+						if(numeroVuelo > this.vPrincipal.getTripulantes().size()) {
+							JOptionPane.showMessageDialog(this.vPrincipal, "No se han cargado los tripulantes del vuelo" + herramienta.detallesVuelo(numeroVuelo, this.vPrincipal.getFechaHora()));
+						} else {
+							ArrayList<Tripulante> tripulantes = this.vPrincipal.getTripulantes().get(numeroVuelo - 1);
 							Tripulante tripulante = null;
 							for(Tripulante t: tripulantes)
 								if(t.getNumeroIdentificacion() == Integer.parseInt(idUsuarioAdmin))
@@ -66,9 +67,7 @@ public class InterfacePrincipalControlAL implements ActionListener{
 							if (tripulante != null)
 								cargarAdministrarBotones();
 							else 
-								JOptionPane.showMessageDialog(vPrincipal, "Usuario sin permisos, por favor intente de nuevo.", "Error!", JOptionPane.ERROR_MESSAGE);						
-						} else {
-							JOptionPane.showMessageDialog(vPrincipal, "Usuario sin permisos, por favor intente de nuevo.", "Error!", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(vPrincipal, "Usuario sin permisos, por favor intente de nuevo.", "Error!", JOptionPane.ERROR_MESSAGE);							
 						}
 					} else {
 						JOptionPane.showMessageDialog(vPrincipal, "Usuario sin permisos, por favor intente de nuevo.", "Error!", JOptionPane.ERROR_MESSAGE);
@@ -80,7 +79,12 @@ public class InterfacePrincipalControlAL implements ActionListener{
 		 * ValidaAcceso - cargarPuestosVuelo();
 		 */
 		if (e.getSource() == this.vPrincipal.getBtnBuscarPuestoVuelo()) {
-			JOptionPane.showMessageDialog(vPrincipal, "Boton - Buscar vuelo");
+			if(this.vPrincipal.getCbFechaSalidaVuelo().getSelectedIndex() <= 0 | this.vPrincipal.getCbHoraSalidaVuelo().getSelectedIndex() <= 0 | (Integer)this.vPrincipal.getsCantidadPasajeroVuelo().getValue() <= 0) {
+				JOptionPane.showMessageDialog(vPrincipal, "Fecha y hora de vuelo o cantidad de pasajeros invalido, por favor intente de nuevo.", "Error!", JOptionPane.ERROR_MESSAGE);
+			} else {
+				int numeroVuelo = herramienta.numeroVuelo(this.vPrincipal.getCbFechaSalidaVuelo().getSelectedIndex(), this.vPrincipal.getCbHoraSalidaVuelo().getSelectedIndex());
+				cargarPuestosVuelo(numeroVuelo-1);
+			}
 		}
 	}
 	/**
@@ -95,14 +99,18 @@ public class InterfacePrincipalControlAL implements ActionListener{
 	public void cargarAdministrarBotones() {
 		InterfaceAdministrarBotones vAdministrarBotones = new InterfaceAdministrarBotones(this.vPrincipal);
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-		vAdministrarBotones.setLocation(pantalla.width/2 - vAdministrarBotones.getSize().width/2, pantalla.height/2 - vAdministrarBotones.getSize().height/2);
-		vAdministrarBotones.setSize(525, 220);
+		vAdministrarBotones.setLocation(pantalla.width/6, pantalla.height/4);
+		vAdministrarBotones.setSize(870, 230);
 		vAdministrarBotones.setVisible(true);
 	}
 	/**
 	 * CargarVentana-PuestosVuelo
 	 * */
-	public void cargarPuestosVuelo() {
-		
+	public void cargarPuestosVuelo(int numeroVuelo) {
+		InterfacePuestosSeleccionar vPuestosSeleccionar = new InterfacePuestosSeleccionar(this.vPrincipal, numeroVuelo);
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+		vPuestosSeleccionar.setLocation(pantalla.width/8, pantalla.height/4);
+		vPuestosSeleccionar.setSize(1070, 430);
+		vPuestosSeleccionar.setVisible(true);
 	}
 }

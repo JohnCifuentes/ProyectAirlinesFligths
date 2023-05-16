@@ -9,7 +9,7 @@ public class Pasajero {
 	private ContactoEmergencia contactoEmergencia;
 	
 	public Pasajero() {}
-
+	
 	public String getNombreCompleto() {
 		return nombreCompleto;
 	}

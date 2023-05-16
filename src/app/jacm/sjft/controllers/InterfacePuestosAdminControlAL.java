@@ -32,10 +32,8 @@ public class InterfacePuestosAdminControlAL implements ActionListener{
 				encontrarPuestoActualizar(botonSeleccionado);
 				botonSeleccionado.setBackground(Color.GREEN);
 			}
-			
 		} else {
 			if(JOptionPane.showConfirmDialog(botonSeleccionado, "Usted va a inactivar el puesto " + botonSeleccionado.getText() + ", esta seguro?") == 0) {
-				ArrayList<Puesto> puestos = this.vPuestosAdmin.getvAdministrarBotones().getVistaPrincipal().getPuestos().get(this.vPuestosAdmin.getNumeroVuelo());
 				encontrarPuestoActualizar(botonSeleccionado);
 				botonSeleccionado.setBackground(Color.RED);
 			}
@@ -44,11 +42,15 @@ public class InterfacePuestosAdminControlAL implements ActionListener{
 	
 	public void encontrarPuestoActualizar(JButton botonSeleccionado) {
 		ArrayList<Puesto> puestos = this.vPuestosAdmin.getvAdministrarBotones().getVistaPrincipal().getPuestos().get(this.vPuestosAdmin.getNumeroVuelo());
+		//Se recorre el arreglo de puestos del vuelo seleccionado
 		for(int i = 0; i < puestos.size(); i++) {
+			//Si el consecutivo del boleto coincide con el titulo del boton seleccionado
 			if(puestos.get(i).getConsecutivoBoleto().equals(botonSeleccionado.getText())) {
+				//Se actualiza disponibilidad del puesto
 				puestos.get(i).setDisponibilidad(this.vPuestosAdmin.getActivarInactivarPuesto());
-				//
+				//Se actualiza el puesto en el arreglo
 				this.vPuestosAdmin.getvAdministrarBotones().getVistaPrincipal().getPuestos().get(this.vPuestosAdmin.getNumeroVuelo()).set(i, puestos.get(i));
+				break;
 			}
 		}		
 	}

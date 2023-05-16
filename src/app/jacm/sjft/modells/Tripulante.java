@@ -10,7 +10,11 @@ public class Tripulante extends Pasajero {
 	public Tripulante(int numeroVuelo) {
 		this.numeroVuelo = numeroVuelo;
 	}
-
+	
+	public Tripulante(String nombreCompleto) {
+		this.setNombreCompleto(nombreCompleto); 
+	}
+	
 	public int getNumeroVuelo() {
 		return numeroVuelo;
 	}
