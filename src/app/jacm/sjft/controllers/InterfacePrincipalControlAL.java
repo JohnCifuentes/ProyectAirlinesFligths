@@ -34,6 +34,11 @@ public class InterfacePrincipalControlAL implements ActionListener{
 		 * */
 		if (e.getSource() == this.vPrincipal.getBtnGestionarMiViaje()) {
 			JOptionPane.showMessageDialog(vPrincipal, "Boton - Gestionar mi Viaje");
+			System.out.println("Numero de vuelo " + this.herramienta.numeroVuelo(this.vPrincipal.getCbFechaSalidaVuelo().getSelectedIndex(), this.vPrincipal.getCbHoraSalidaVuelo().getSelectedIndex()));
+			System.out.println(this.herramienta.detallesVuelo(
+					this.herramienta.numeroVuelo(this.vPrincipal.getCbFechaSalidaVuelo().getSelectedIndex(), this.vPrincipal.getCbHoraSalidaVuelo().getSelectedIndex()), 
+				this.vPrincipal.getFechaHora()
+			));
 		}
 		/**
 		 * ValidaAcceso - cargarAdministrarBotones();
@@ -57,7 +62,7 @@ public class InterfacePrincipalControlAL implements ActionListener{
 						 */
 						int numeroVuelo = herramienta.numeroVuelo(this.vPrincipal.getCbFechaSalidaVuelo().getSelectedIndex(), this.vPrincipal.getCbHoraSalidaVuelo().getSelectedIndex());
 						if(numeroVuelo > this.vPrincipal.getTripulantes().size()) {
-							JOptionPane.showMessageDialog(this.vPrincipal, "No se han cargado los tripulantes del vuelo" + herramienta.detallesVuelo(numeroVuelo, this.vPrincipal.getFechaHora()));
+							JOptionPane.showMessageDialog(this.vPrincipal, "No se han cargado los tripulantes del vuelo" + this.herramienta.detallesVuelo(numeroVuelo, this.vPrincipal.getFechaHora()));
 						} else {
 							ArrayList<Tripulante> tripulantes = this.vPrincipal.getTripulantes().get(numeroVuelo - 1);
 							Tripulante tripulante = null;

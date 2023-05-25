@@ -4,15 +4,12 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import app.jacm.sjft.interfaces.InterfaceAdministrarBotones;
 import app.jacm.sjft.interfaces.InterfaceDatosPersonalesTripulante;
-import app.jacm.sjft.interfaces.InterfacePrincipal;
 import app.jacm.sjft.interfaces.InterfacePuestosAdmin;
-import app.jacm.sjft.modells.Tripulante;
 import app.jacm.sjft.tools.Herramientas;
 
 public class InterfaceAdministrarBotonesControlAL implements ActionListener{
@@ -34,7 +31,7 @@ public class InterfaceAdministrarBotonesControlAL implements ActionListener{
 		 * ValidaAcceso - cargarTripulantes(); 
 		 */
 		if(e.getSource() == this.vAdministrarBotones.getBtnCargarTripulantes()) {
-			this.numeroVuelo = herramienta.numeroVuelo(vAdministrarBotones.getVistaPrincipal().getCbFechaSalidaVuelo().getSelectedIndex(), vAdministrarBotones.getVistaPrincipal().getCbHoraSalidaVuelo().getSelectedIndex());
+			this.numeroVuelo = herramienta.numeroVuelo(this.vAdministrarBotones.getVistaPrincipal().getCbFechaSalidaVuelo().getSelectedIndex(), this.vAdministrarBotones.getVistaPrincipal().getCbHoraSalidaVuelo().getSelectedIndex());
 			int tripulanteNumeroVueloMaximo = this.herramienta.numeroVueloTripulantesCargadosMax(
 				this.vAdministrarBotones.getVistaPrincipal().getTripulantes());
 			if(tripulanteNumeroVueloMaximo == -1) {

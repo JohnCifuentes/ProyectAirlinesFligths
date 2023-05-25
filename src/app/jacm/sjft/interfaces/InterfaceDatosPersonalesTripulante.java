@@ -11,15 +11,11 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import app.jacm.sjft.controllers.InterfaceAdministrarBotonesControlAL;
-import app.jacm.sjft.controllers.InterfaceAdministrarBotonesControlWL;
 import app.jacm.sjft.controllers.InterfaceDatosPersonalesTripulanteControlAL;
 import app.jacm.sjft.controllers.InterfaceDatosPersonalesTripulanteControlWL;
 import app.jacm.sjft.modells.Tripulante;
 
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
 
 public class InterfaceDatosPersonalesTripulante extends JFrame{
 	private InterfaceAdministrarBotones vAdministrarBotones;

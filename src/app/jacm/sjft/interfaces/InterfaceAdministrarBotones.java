@@ -6,18 +6,11 @@ import javax.swing.JPanel;
 
 import app.jacm.sjft.controllers.InterfaceAdministrarBotonesControlAL;
 import app.jacm.sjft.controllers.InterfaceAdministrarBotonesControlWL;
-import app.jacm.sjft.controllers.InterfacePrincipalControlAL;
-import app.jacm.sjft.modells.OrdenCompra;
-import app.jacm.sjft.modells.Puesto;
-import app.jacm.sjft.modells.Tripulante;
 
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.util.ArrayList;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class InterfaceAdministrarBotones extends JFrame{
 	private InterfacePrincipal vistaPrincipal;

@@ -3,8 +3,6 @@ package app.jacm.sjft.interfaces;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import app.jacm.sjft.controllers.InterfaceAdministrarBotonesControlAL;
-import app.jacm.sjft.controllers.InterfaceAdministrarBotonesControlWL;
 import app.jacm.sjft.controllers.InterfacePuestosAdminControlAL;
 import app.jacm.sjft.controllers.InterfacePuestosAdminControlWL;
 import app.jacm.sjft.modells.Puesto;
@@ -19,9 +17,6 @@ import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class InterfacePuestosAdmin extends JFrame{
 	private InterfaceAdministrarBotones vAdministrarBotones;

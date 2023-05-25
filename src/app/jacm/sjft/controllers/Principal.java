@@ -1,15 +1,11 @@
  package app.jacm.sjft.controllers;
 
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import java.awt.Toolkit;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
-
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
 
 import app.jacm.sjft.interfaces.InterfacePrincipal;
 import app.jacm.sjft.modells.OrdenCompra;
@@ -88,6 +84,8 @@ public class Principal {
 								ubicacionPuesto = 0;
 								precioPuesto = (precioPuestoEstandar*2)+(precioPuestoEstandar*30)/100;
 							/**
+							 * 
+							 * 
 							 * UbicacionVuelo: Pasillo
 							 */
 							} else {

@@ -10,9 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
@@ -21,7 +18,7 @@ import javax.swing.JComboBox;
 
 public class InterfacePrincipal extends JFrame{
 	private ArrayList<OrdenCompra> ordenesCompra;
-	private String[][] fechaHora = new String[3][4];
+	private String[][] fechaHora;
 	private ArrayList<ArrayList<Tripulante>> tripulantes;
 	private ArrayList<ArrayList<Puesto>> puestos;
 	/**

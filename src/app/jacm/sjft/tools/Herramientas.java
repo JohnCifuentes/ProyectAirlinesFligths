@@ -47,7 +47,7 @@ public class Herramientas {
 
 	public boolean esNumero(String dato) {
 		try {
-			int datoNumero = Integer.parseInt(dato);
+			Integer.parseInt(dato);
 			return false;
 		}catch(Exception e) {
 			return true;

@@ -14,25 +14,31 @@ import javax.swing.JPanel;
 import app.jacm.sjft.controllers.InterfacePuestosSeleccionarControlAl;
 import app.jacm.sjft.controllers.InterfacePuestosSeleccionarControlWL;
 import app.jacm.sjft.modells.Puesto;
+import app.jacm.sjft.modells.Tiquete;
 import app.jacm.sjft.modells.Tripulante;
 import app.jacm.sjft.tools.Herramientas;
 
 public class InterfacePuestosSeleccionar extends JFrame{
 	private InterfacePrincipal vistaPrincipal;
 	private int numeroVuelo;
+	//
 	private ArrayList<Tripulante> tripulantes = new ArrayList<Tripulante>();
 	private ArrayList<Puesto> puestos  = new ArrayList<Puesto>();
 	private JButton[] btnPuestos;
 	private GridBagConstraints[] gbc_btnPuestos;
+	//
+	private ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
+	//
 	private Herramientas herramienta = new Herramientas();
 	//
 	private InterfacePuestosSeleccionarControlAl controlVentanaEventos = new InterfacePuestosSeleccionarControlAl(this);
 	private InterfacePuestosSeleccionarControlWL controlVentana = new InterfacePuestosSeleccionarControlWL(this);
+	private JButton btnConfirmar;
+	private JButton btnCancelar;
 	
 	public InterfacePuestosSeleccionar(InterfacePrincipal vistaPrincipal, int numeroVuelo) {
 		this.vistaPrincipal = vistaPrincipal;
 		this.numeroVuelo = numeroVuelo;
-		
 		try {
 			tripulantes = this.vistaPrincipal.getTripulantes().get(numeroVuelo);
 		} catch(Exception e) {
@@ -42,15 +48,14 @@ public class InterfacePuestosSeleccionar extends JFrame{
 			tripulantes.add(new Tripulante("Asistente 2"));
 			tripulantes.add(new Tripulante("Asistente 3"));
 		}
-		
-		puestos = this.vistaPrincipal.getPuestos().get(numeroVuelo);	
+		this.puestos = this.vistaPrincipal.getPuestos().get(numeroVuelo);
 
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{40, 0, 0, 40, 0};
-		gbl_panel.rowHeights = new int[]{30, 0, 30, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 1.0, 9.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[]{40, 0, 0, 30, 40, 40, 0};
+		gbl_panel.rowHeights = new int[]{50, 0, 50, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 1.0, 9.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
@@ -122,6 +127,36 @@ public class InterfacePuestosSeleccionar extends JFrame{
 		gbl_panelPuestos.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
 		panelPuestos.setLayout(gbl_panelPuestos);
 		
+		JPanel panel_1 = new JPanel();
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_1.fill = GridBagConstraints.BOTH;
+		gbc_panel_1.gridx = 4;
+		gbc_panel_1.gridy = 1;
+		panel.add(panel_1, gbc_panel_1);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[]{0, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_panel_1.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{1.0, 3.0, 3.0, 1.0, Double.MIN_VALUE};
+		panel_1.setLayout(gbl_panel_1);
+		
+		btnConfirmar = new JButton("CONFIRMAR");
+		GridBagConstraints gbc_btnConfirmar = new GridBagConstraints();
+		gbc_btnConfirmar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnConfirmar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnConfirmar.gridx = 0;
+		gbc_btnConfirmar.gridy = 1;
+		panel_1.add(btnConfirmar, gbc_btnConfirmar);
+		
+		btnCancelar = new JButton("CANCELAR");
+		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
+		gbc_btnCancelar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnCancelar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnCancelar.gridx = 0;
+		gbc_btnCancelar.gridy = 2;
+		panel_1.add(btnCancelar, gbc_btnCancelar);
+		
 		this.btnPuestos = herramienta.btnPuestos(puestos);
 		this.gbc_btnPuestos = herramienta.gbc_btnPuestos(puestos);
 		for(int i = 0; i < this.btnPuestos.length; i++) {
@@ -143,6 +178,8 @@ public class InterfacePuestosSeleccionar extends JFrame{
 		for(int i = 0; i < this.btnPuestos.length; i++) {
 			this.btnPuestos[i].addActionListener(controlVentanaEventos);
 		}
+		this.btnConfirmar.addActionListener(controlVentanaEventos);
+		this.btnCancelar.addActionListener(controlVentanaEventos);
 	}
 
 	public InterfacePrincipal getVistaPrincipal() {
@@ -193,6 +230,18 @@ public class InterfacePuestosSeleccionar extends JFrame{
 		this.gbc_btnPuestos = gbc_btnPuestos;
 	}
 
+	public ArrayList<Tiquete> getTiquetes() {
+		return tiquetes;
+	}
+
+	public void setTiquetes(ArrayList<Tiquete> tiquetes) {
+		this.tiquetes = tiquetes;
+	}
+	
+	public void addTiquete(Tiquete tiquete) {
+		this.tiquetes.add(tiquete);
+	}
+
 	public Herramientas getHerramienta() {
 		return herramienta;
 	}
@@ -215,6 +264,22 @@ public class InterfacePuestosSeleccionar extends JFrame{
 
 	public void setControlVentana(InterfacePuestosSeleccionarControlWL controlVentana) {
 		this.controlVentana = controlVentana;
+	}
+
+	public JButton getBtnConfirmar() {
+		return btnConfirmar;
+	}
+
+	public void setBtnConfirmar(JButton btnConfirmar) {
+		this.btnConfirmar = btnConfirmar;
+	}
+
+	public JButton getBtnCancelar() {
+		return btnCancelar;
+	}
+
+	public void setBtnCancelar(JButton btnCancelar) {
+		this.btnCancelar = btnCancelar;
 	}
 
 }

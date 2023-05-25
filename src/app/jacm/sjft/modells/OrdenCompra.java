@@ -1,29 +1,28 @@
 package app.jacm.sjft.modells;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class OrdenCompra {
 	private int consecutivo;
-	private LocalDate fecha;
+	private int numeroVuelo;
 	private ArrayList<Tiquete> tiquetes;
 	
-	public OrdenCompra() {}
+	private static int consecutivoInterno;
+	
+	public OrdenCompra() {
+		this.consecutivo = ++consecutivoInterno;
+	}
 
 	public int getConsecutivo() {
 		return consecutivo;
 	}
 
-	public void setConsecutivo(int consecutivo) {
-		this.consecutivo = consecutivo;
+	public int getNumeroVuelo() {
+		return numeroVuelo;
 	}
 
-	public LocalDate getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
+	public void setNumeroVuelo(int numeroVuelo) {
+		this.numeroVuelo = numeroVuelo;
 	}
 
 	public ArrayList<Tiquete> getTiquetes() {
