@@ -191,6 +191,10 @@ public class InterfacePrincipal extends JFrame{
 		this.ordenesCompra = ordenesCompra;
 	}
 	
+	public void agregarOrdenCompra(OrdenCompra ordenCompra) {
+		this.ordenesCompra.add(ordenCompra);
+	}
+	
 	public String[][] getFechaHora() {
 		return fechaHora;
 	}

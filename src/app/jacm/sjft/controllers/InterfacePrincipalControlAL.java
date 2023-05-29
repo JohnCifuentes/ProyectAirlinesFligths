@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import app.jacm.sjft.interfaces.InterfaceAdministrarBotones;
+import app.jacm.sjft.interfaces.InterfaceDatosVuelo;
 import app.jacm.sjft.interfaces.InterfacePrincipal;
 import app.jacm.sjft.interfaces.InterfacePuestosSeleccionar;
+import app.jacm.sjft.modells.OrdenCompra;
+import app.jacm.sjft.modells.Tiquete;
 import app.jacm.sjft.modells.Tripulante;
 import app.jacm.sjft.tools.Herramientas;
 
@@ -33,12 +36,33 @@ public class InterfacePrincipalControlAL implements ActionListener{
 		 * ValidaAcceso - cargarCancelarTiquetes();
 		 * */
 		if (e.getSource() == this.vPrincipal.getBtnGestionarMiViaje()) {
-			JOptionPane.showMessageDialog(vPrincipal, "Boton - Gestionar mi Viaje");
-			System.out.println("Numero de vuelo " + this.herramienta.numeroVuelo(this.vPrincipal.getCbFechaSalidaVuelo().getSelectedIndex(), this.vPrincipal.getCbHoraSalidaVuelo().getSelectedIndex()));
-			System.out.println(this.herramienta.detallesVuelo(
-					this.herramienta.numeroVuelo(this.vPrincipal.getCbFechaSalidaVuelo().getSelectedIndex(), this.vPrincipal.getCbHoraSalidaVuelo().getSelectedIndex()), 
-				this.vPrincipal.getFechaHora()
-			));
+			String idPasajero = JOptionPane.showInputDialog(vPrincipal, "Ingrese numero de identificación");
+			if(this.herramienta.esNumero(idPasajero)) {
+				JOptionPane.showMessageDialog(vPrincipal, "Numero de identififación debe de ser numerico, por favor intente de nuevo.", "Error!", JOptionPane.ERROR_MESSAGE);
+			} else {
+				OrdenCompra ordenCompra = new OrdenCompra();;
+				Tiquete tiquete = new Tiquete();
+				boolean existeTiquetePasajero = false;
+				listaCompras:
+				for(OrdenCompra oc: this.vPrincipal.getOrdenesCompra()) {
+					listaTiquetes:
+					for(Tiquete t: oc.getTiquetes()) {
+						if(t.getPasajero().getNumeroIdentificacion() == Integer.parseInt(idPasajero)) {
+							ordenCompra = oc;
+							tiquete = t;
+							existeTiquetePasajero = true;
+							break listaTiquetes;
+						}
+					}
+					if(existeTiquetePasajero)
+						break listaCompras;
+				}
+				if(!existeTiquetePasajero) {
+					JOptionPane.showMessageDialog(vPrincipal, "No existe un tiquete para el numero de identificación, por favor intente de nuevo.");
+				} else {
+					cargarCancelarTiquetes(ordenCompra, tiquete);
+				}
+			}
 		}
 		/**
 		 * ValidaAcceso - cargarAdministrarBotones();
@@ -95,8 +119,12 @@ public class InterfacePrincipalControlAL implements ActionListener{
 	/**
 	 * CargarVentana-CancelarTiquetes
 	 * */
-	public void cargarCancelarTiquetes() {
-		
+	public void cargarCancelarTiquetes(OrdenCompra ordenCompra, Tiquete tiquete) {
+		InterfaceDatosVuelo vAdministrarBotones = new InterfaceDatosVuelo(this.vPrincipal, ordenCompra, tiquete);
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+		vAdministrarBotones.setLocation(pantalla.width/6, pantalla.height/4);
+		vAdministrarBotones.setSize(870, 230);
+		vAdministrarBotones.setVisible(true);
 	}
 	/**
 	 * CargarVentana-AdministrarBotones
@@ -114,8 +142,8 @@ public class InterfacePrincipalControlAL implements ActionListener{
 	public void cargarPuestosVuelo(int numeroVuelo) {
 		InterfacePuestosSeleccionar vPuestosSeleccionar = new InterfacePuestosSeleccionar(this.vPrincipal, numeroVuelo);
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-		vPuestosSeleccionar.setLocation(pantalla.width/8, pantalla.height/4);
-		vPuestosSeleccionar.setSize(1070, 430);
+		vPuestosSeleccionar.setLocation(1, pantalla.height/4);
+		vPuestosSeleccionar.setSize(1370, 430);
 		vPuestosSeleccionar.setVisible(true);
 	}
 }

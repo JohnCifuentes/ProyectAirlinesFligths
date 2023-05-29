@@ -30,8 +30,10 @@ public class InterfaceDatosPersonalesTripulanteControlAL implements ActionListen
 				this.vDatosPersonalesTripulante.getTextDireccionResidencia().getText().equals("")
 			) {
 				JOptionPane.showMessageDialog(vDatosPersonalesTripulante, "Debe de ingresar todos los datos. Por favor intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
+			} else if(herramienta.esFecha(this.vDatosPersonalesTripulante.getTextFechaNacimiento().getText())) {
+				JOptionPane.showMessageDialog(vDatosPersonalesTripulante, "El campo fecha de nacimiento debe de cumplir con el formato DD/MM/YYYY. Por favor intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
 			} else if(herramienta.esNumero(this.vDatosPersonalesTripulante.getTextNumeroIdentificacion().getText())){
-				JOptionPane.showMessageDialog(vDatosPersonalesTripulante, "El campo numero de identificacion debe ser numerico. Por favor intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);	
+				JOptionPane.showMessageDialog(vDatosPersonalesTripulante, "El campo numero de identificacion debe ser numerico. Por favor intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
 			} else if(herramienta.esNumero(this.vDatosPersonalesTripulante.getTextNumeroTelefono().getText())) {
 				JOptionPane.showMessageDialog(vDatosPersonalesTripulante, "El campo numero de telefono debe ser numerico. Por favor intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
 			} else {
@@ -64,6 +66,7 @@ public class InterfaceDatosPersonalesTripulanteControlAL implements ActionListen
 		if(this.vDatosPersonalesTripulante.getNumeroTripulantes() > this.vDatosPersonalesTripulante.getNumeroTripulantesMaximo()) {
 			this.vDatosPersonalesTripulante.getvAdministrarBotones().getVistaPrincipal().addTripulantesVuelo(this.vDatosPersonalesTripulante.getTripulantes());
 			this.vDatosPersonalesTripulante.dispose();
+			this.vDatosPersonalesTripulante.getvAdministrarBotones().setVisible(true);
 		}
 	}
 	

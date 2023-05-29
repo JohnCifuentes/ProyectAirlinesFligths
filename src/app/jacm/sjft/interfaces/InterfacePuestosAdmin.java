@@ -39,6 +39,7 @@ public class InterfacePuestosAdmin extends JFrame{
 		this.vAdministrarBotones = vAdministrarBotones;
 		this.activarInactivarPuesto = activarInactivarPuesto;
 		this.numeroVuelo = numeroVuelo;
+		this.vAdministrarBotones.setVisible(false);
 		
 		tripulantes = this.vAdministrarBotones.getVistaPrincipal().getTripulantes().get(numeroVuelo);
 		puestos = this.vAdministrarBotones.getVistaPrincipal().getPuestos().get(numeroVuelo);	

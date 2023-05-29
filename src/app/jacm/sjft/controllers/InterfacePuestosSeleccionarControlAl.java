@@ -51,25 +51,40 @@ public class InterfacePuestosSeleccionarControlAl implements ActionListener{
 			if(this.vPuestosSeleccionar.getTiquetes().size() == 0) {
 				JOptionPane.showMessageDialog(vPuestosSeleccionar, "Debe de ingresar al menos un pasajero. Por favor intente de nuevo.");
 			} else {
-				ArrayList<Puesto> puestos = this.vPuestosSeleccionar.getPuestos();
+				String mensaje = null;
+				int cantidadTiquetes = 0;
+				int valorTotal = 0;
 				for(Tiquete t: this.vPuestosSeleccionar.getTiquetes()) {
-					for(int i = 0; i < puestos.size(); i++) {
-						if(puestos.get(i).getConsecutivoBoleto().equals(t.getSilla().getConsecutivoBoleto())) {
-							puestos.get(i).setDisponibilidad(2);
-							break;
+					cantidadTiquetes++;
+					valorTotal = valorTotal + t.getSilla().getPrecio();
+				}
+				mensaje = "Confirma la compra de " + cantidadTiquetes + " tiquete(s) por un total de $" + valorTotal;
+				if(JOptionPane.showConfirmDialog(vPuestosSeleccionar, mensaje) == 0) {
+					ArrayList<Puesto> puestos = this.vPuestosSeleccionar.getPuestos();
+					for(Tiquete t: this.vPuestosSeleccionar.getTiquetes()) {
+						for(int i = 0; i < puestos.size(); i++) {
+							if(puestos.get(i).getConsecutivoBoleto().equals(t.getSilla().getConsecutivoBoleto())) {
+								puestos.get(i).setDisponibilidad(2);
+								break;
+							}
 						}
 					}
+					this.vPuestosSeleccionar.getVistaPrincipal().getPuestos().set(this.vPuestosSeleccionar.getNumeroVuelo(), puestos);
+					
+					OrdenCompra ordenCompra = new OrdenCompra();
+					ordenCompra.setNumeroVuelo(this.vPuestosSeleccionar.getNumeroVuelo());
+					ordenCompra.setTiquetes(this.vPuestosSeleccionar.getTiquetes());
+					this.vPuestosSeleccionar.getVistaPrincipal().agregarOrdenCompra(ordenCompra);
+					//
+					this.vPuestosSeleccionar.dispose();
+					this.vPuestosSeleccionar.getVistaPrincipal().setVisible(true);					
 				}
-				this.vPuestosSeleccionar.getVistaPrincipal().getPuestos().set(this.vPuestosSeleccionar.getNumeroVuelo(), puestos);
-				
-				OrdenCompra ordenCompra = new OrdenCompra();
-				ordenCompra.setNumeroVuelo(this.vPuestosSeleccionar.getNumeroVuelo());
-				ordenCompra.setTiquetes(this.vPuestosSeleccionar.getTiquetes());
 			}
 		}
 		
 		if(e.getSource() == this.vPuestosSeleccionar.getBtnCancelar()) {
-			
+			this.vPuestosSeleccionar.dispose();
+			this.vPuestosSeleccionar.getVistaPrincipal().setVisible(true);			
 		}
 
 	}

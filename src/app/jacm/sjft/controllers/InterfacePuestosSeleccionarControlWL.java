@@ -9,19 +9,18 @@ public class InterfacePuestosSeleccionarControlWL implements WindowListener{
 	private InterfacePuestosSeleccionar vPuestosSeleccionarVentana;
 	
 	public InterfacePuestosSeleccionarControlWL(InterfacePuestosSeleccionar vPuestosSeleccionar) {
+		super();
 		this.vPuestosSeleccionarVentana = vPuestosSeleccionar;
 	}
 	
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+		this.vPuestosSeleccionarVentana.getVistaPrincipal().setVisible(true);
 	}
 
 	@Override

@@ -21,24 +21,25 @@ import app.jacm.sjft.tools.Herramientas;
 public class InterfacePuestosSeleccionar extends JFrame{
 	private InterfacePrincipal vistaPrincipal;
 	private int numeroVuelo;
+	private Herramientas herramienta = new Herramientas();
 	//
 	private ArrayList<Tripulante> tripulantes = new ArrayList<Tripulante>();
 	private ArrayList<Puesto> puestos  = new ArrayList<Puesto>();
-	private JButton[] btnPuestos;
-	private GridBagConstraints[] gbc_btnPuestos;
-	//
 	private ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 	//
-	private Herramientas herramienta = new Herramientas();
+	private JButton[] btnPuestos;
+	private GridBagConstraints[] gbc_btnPuestos;
+	private JButton btnConfirmar;
+	private JButton btnCancelar;
 	//
 	private InterfacePuestosSeleccionarControlAl controlVentanaEventos = new InterfacePuestosSeleccionarControlAl(this);
 	private InterfacePuestosSeleccionarControlWL controlVentana = new InterfacePuestosSeleccionarControlWL(this);
-	private JButton btnConfirmar;
-	private JButton btnCancelar;
-	
+	//
 	public InterfacePuestosSeleccionar(InterfacePrincipal vistaPrincipal, int numeroVuelo) {
 		this.vistaPrincipal = vistaPrincipal;
 		this.numeroVuelo = numeroVuelo;
+		this.vistaPrincipal.setVisible(false);
+		
 		try {
 			tripulantes = this.vistaPrincipal.getTripulantes().get(numeroVuelo);
 		} catch(Exception e) {

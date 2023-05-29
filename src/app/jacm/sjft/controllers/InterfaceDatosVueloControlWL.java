@@ -3,24 +3,24 @@ package app.jacm.sjft.controllers;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import app.jacm.sjft.interfaces.InterfaceAdministrarBotones;
+import app.jacm.sjft.interfaces.InterfaceDatosVuelo;
 
-public class InterfaceAdministrarBotonesControlWL implements WindowListener{
-	InterfaceAdministrarBotones ventanaBotones;
-	
-	public InterfaceAdministrarBotonesControlWL(InterfaceAdministrarBotones ventanaBotones) {
-		super();
-		this.ventanaBotones = ventanaBotones;
+public class InterfaceDatosVueloControlWL implements WindowListener{
+	private InterfaceDatosVuelo vDatosVueloVentana;
+	public InterfaceDatosVueloControlWL(InterfaceDatosVuelo vDatosVueloVentana) {
+		this.vDatosVueloVentana = vDatosVueloVentana;
 	}
-
+	
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		this.ventanaBotones.getVistaPrincipal().setVisible(true);
+		// TODO Auto-generated method stub
+		this.vDatosVueloVentana.getvPrincipal().setVisible(true);
 	}
 
 	@Override
@@ -52,6 +52,5 @@ public class InterfaceAdministrarBotonesControlWL implements WindowListener{
 		// TODO Auto-generated method stub
 		
 	}
-	
 
 }

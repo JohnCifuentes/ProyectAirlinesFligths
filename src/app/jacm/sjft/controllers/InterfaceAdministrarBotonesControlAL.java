@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import app.jacm.sjft.interfaces.InterfaceAdministrarBotones;
 import app.jacm.sjft.interfaces.InterfaceDatosPersonalesTripulante;
+import app.jacm.sjft.interfaces.InterfaceInformeGeneral;
 import app.jacm.sjft.interfaces.InterfacePuestosAdmin;
 import app.jacm.sjft.tools.Herramientas;
 
@@ -79,6 +80,13 @@ public class InterfaceAdministrarBotonesControlAL implements ActionListener{
 				activarInactivarPuestos(this.numeroVuelo-1, 1);
 			} 
 		}
+		/**
+		 * ValidaAcceso - cargarInformeGeneral();
+		 */
+		if(e.getSource() == this.vAdministrarBotones.getBtnInformeGeneralVuelo()) {
+			this.numeroVuelo = herramienta.numeroVuelo(this.vAdministrarBotones.getVistaPrincipal().getCbFechaSalidaVuelo().getSelectedIndex(), this.vAdministrarBotones.getVistaPrincipal().getCbHoraSalidaVuelo().getSelectedIndex());
+			cargarInformeGeneral(this.numeroVuelo-1);
+		}
 	}
 	/**
 	 * 
@@ -100,4 +108,15 @@ public class InterfaceAdministrarBotonesControlAL implements ActionListener{
 		vCargarPuestosAdmin.setSize(1070, 430);
 		vCargarPuestosAdmin.setVisible(true);
 	}
+	/**
+	 * 
+	 */
+	public void cargarInformeGeneral(int numeroVuelo) {
+		InterfaceInformeGeneral vCargarInformeGeneral = new InterfaceInformeGeneral(this.vAdministrarBotones, numeroVuelo);
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+		vCargarInformeGeneral.setLocation(pantalla.width/8, pantalla.height/4);
+		vCargarInformeGeneral.setSize(1070, 430);
+		vCargarInformeGeneral.setVisible(true);		
+	}
+
 }

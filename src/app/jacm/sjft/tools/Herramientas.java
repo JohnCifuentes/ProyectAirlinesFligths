@@ -3,7 +3,11 @@ package app.jacm.sjft.tools;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JButton;
 
@@ -52,6 +56,32 @@ public class Herramientas {
 		}catch(Exception e) {
 			return true;
 		}
+	}
+	
+	public boolean esFecha(String dato) {
+		try {
+			SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+			formatoFecha.setLenient(false);
+			formatoFecha.parse(dato);
+			return false;
+		} catch(ParseException e) {
+			return true;
+		}
+	}
+	
+	public int edadPasajero(String dato) {
+		int edadPasajero = 0;
+		try {
+			int milisecondsByDay = 86400000;
+			SimpleDateFormat formatoFechaNacimiento = new SimpleDateFormat("dd/MM/yyyy");
+			Date fechaNacimiento = formatoFechaNacimiento.parse(dato);
+			Date fechaActual = new Date(System.currentTimeMillis());
+			int diferencia = (int)((fechaActual.getTime() - fechaNacimiento.getTime())/milisecondsByDay);
+			edadPasajero = diferencia/365;
+		} catch(ParseException e) {
+			return edadPasajero;
+		}
+		return edadPasajero;
 	}
 	
 	public JButton[] btnPuestos(ArrayList<Puesto> listaPuestos) {

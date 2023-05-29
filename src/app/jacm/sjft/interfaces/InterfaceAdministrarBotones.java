@@ -34,9 +34,9 @@ public class InterfaceAdministrarBotones extends JFrame{
 		InterfacePrincipal vistaPrincipal 
 	){
 		this.vistaPrincipal = vistaPrincipal;
-		vistaPrincipal.setVisible(false);
-		getContentPane().setLayout(new BorderLayout(0, 0));
+		this.vistaPrincipal.setVisible(false);
 		
+		getContentPane().setLayout(new BorderLayout(0, 0));
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();

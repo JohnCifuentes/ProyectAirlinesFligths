@@ -9,20 +9,18 @@ public class InterfacePuestosAdminControlWL implements WindowListener{
 	private InterfacePuestosAdmin vPuestosAdmin;
 	
 	public InterfacePuestosAdminControlWL(InterfacePuestosAdmin vPuestosAdmin) {
+		super();
 		this.vPuestosAdmin = vPuestosAdmin; 
-		
 	}
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+		this.vPuestosAdmin.getvAdministrarBotones().setVisible(true);
 	}
 
 	@Override

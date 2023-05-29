@@ -25,6 +25,7 @@ public class InterfaceDatosPersonalesPasajero extends JFrame{
 	private InterfacePuestosSeleccionar vPuestosSeleccionar;
 	private Puesto puesto;
 	private JButton botonSeleccionado;
+	private Herramientas herramienta = new Herramientas();
 	//
 	private JTextField textNombreCompleto;
 	private JTextField textFechaNacimiento;
@@ -35,17 +36,16 @@ public class InterfaceDatosPersonalesPasajero extends JFrame{
 	private JTextField textNumeroTelefonoContacto;
 	private JTextField textNombreCompletoContacto;
 	private JComboBox cbParentescoContacto;
-	//
-	private Herramientas herramienta = new Herramientas();
+	private JButton btnAgregar;
 	//
 	private InterfaceDatosPersonalesPasajeroControlAL controlVentanaEventos = new InterfaceDatosPersonalesPasajeroControlAL(this);
 	private InterfaceDatosPersonalesPasajeroControlWL controlVentana = new InterfaceDatosPersonalesPasajeroControlWL(this);
-	private JButton btnAgregar;
 	//
 	public InterfaceDatosPersonalesPasajero(InterfacePuestosSeleccionar vPuestosSeleccionar, Puesto puesto, JButton botonSeleccionado){
 		this.vPuestosSeleccionar = vPuestosSeleccionar;
 		this.puesto = puesto;
 		this.botonSeleccionado = botonSeleccionado;
+		this.vPuestosSeleccionar.setVisible(false);
 		
 		JPanel panelDatos = new JPanel();
 		getContentPane().add(panelDatos, BorderLayout.CENTER);
@@ -79,7 +79,7 @@ public class InterfaceDatosPersonalesPasajero extends JFrame{
 		};
 		
 		String informacionVuelo = null;
-		informacionVuelo = this.herramienta.detallesVuelo(this.vPuestosSeleccionar.getNumeroVuelo() + 1, this.vPuestosSeleccionar.getVistaPrincipal().getFechaHora());
+		informacionVuelo = this.herramienta.detallesVuelo(this.vPuestosSeleccionar.getNumeroVuelo() + 1, this.vPuestosSeleccionar.getVistaPrincipal().getFechaHora()) + " " + this.puesto.getConsecutivoBoleto();
 		
 		JLabel lblNewLabel_9 = new JLabel(informacionVuelo);
 		lblNewLabel_9.setForeground(Color.BLACK);
@@ -267,7 +267,10 @@ public class InterfaceDatosPersonalesPasajero extends JFrame{
 		gbc_btnAgregar.gridx = 1;
 		gbc_btnAgregar.gridy = 1;
 		panelAgregar.add(btnAgregar, gbc_btnAgregar);
-		
+		/**
+		 * EVENTOS 
+		 */
+		this.addWindowListener(controlVentana);
 		this.btnAgregar.addActionListener(controlVentanaEventos);
 	}
 	

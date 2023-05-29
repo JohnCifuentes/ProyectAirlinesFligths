@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import app.jacm.sjft.interfaces.InterfacePrincipal;
 import app.jacm.sjft.modells.OrdenCompra;
 import app.jacm.sjft.modells.Puesto;

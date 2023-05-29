@@ -7,6 +7,7 @@ import app.jacm.sjft.interfaces.InterfaceDatosPersonalesTripulante;
 
 public class InterfaceDatosPersonalesTripulanteControlWL implements WindowListener{
 	InterfaceDatosPersonalesTripulante vDatosPersonalesTripulante;
+	
 	public InterfaceDatosPersonalesTripulanteControlWL(InterfaceDatosPersonalesTripulante vDatosPersonalesTripulante){
 		super();
 		this.vDatosPersonalesTripulante = vDatosPersonalesTripulante;
@@ -15,13 +16,11 @@ public class InterfaceDatosPersonalesTripulanteControlWL implements WindowListen
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
+		this.vDatosPersonalesTripulante.getvAdministrarBotones().setVisible(true);
 	}
 
 	@Override

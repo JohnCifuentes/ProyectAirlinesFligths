@@ -46,6 +46,7 @@ public class InterfaceDatosPersonalesTripulante extends JFrame{
 	public InterfaceDatosPersonalesTripulante(InterfaceAdministrarBotones vAdministrarBotones, int numeroVuelo) {
 		this.vAdministrarBotones = vAdministrarBotones; 
 		this.numeroVuelo = numeroVuelo;
+		this.vAdministrarBotones.setVisible(false);
 		
 		JPanel panelDatos = new JPanel();
 		getContentPane().add(panelDatos, BorderLayout.CENTER);
@@ -168,6 +169,7 @@ public class InterfaceDatosPersonalesTripulante extends JFrame{
 		gbc_lblContadorTripulantes.gridy = 3;
 		panelAgregar.add(lblContadorTripulantes, gbc_lblContadorTripulantes);
 		
+		this.addWindowListener(controlVentana);
 		btnAgregar.addActionListener(controlVentanaEventos);
 	}
 	
